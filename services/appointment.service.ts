@@ -6,7 +6,7 @@ class AppointmentService extends HttpService {
   }
   
   async getAppointment(params: any) {
-    return this.get('/appointment', {limit:100})
+    return (await this.get('/appointment', {limit:100}))?.data
   }
 }
 

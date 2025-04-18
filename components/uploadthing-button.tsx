@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Trash2 } from "lucide-react";
 import axios from "axios";
 import {categoryService} from "@/services/category.service";
+import {Button} from "@/components/ui/button";
 
 interface ImagePreviewProps {
   setFilekey: (data: ClientUploadedFileData<{
@@ -87,14 +88,16 @@ export const ImageUploadPreview = ({
               className="object-cover"
             />
           </div>
-          <button
+          <Button
+            variant="destructive"
             type="button"
             onClick={handleDeleteImage}
             className="absolute top-2 right-2 p-1.5 bg-red-500 rounded-full text-white hover:bg-red-600 transition-colors"
             aria-label="Delete image"
+            disabled={loading}
           >
             <Trash2 size={20} />
-          </button>
+          </Button>
         </div>
       ) : (
         <div className="w-full max-w-md mx-auto">

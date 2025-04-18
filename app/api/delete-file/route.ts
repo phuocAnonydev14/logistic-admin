@@ -34,7 +34,6 @@ export async function DELETE(req: NextRequest) {
 		const url = new URL(req.url);
 		const fileKey = url.searchParams.get("fileKey");
 		
-		console.log("fileKey", fileKey)
 // Initialize the UTApi with your API key
 		const utApi = new UTApi();
 

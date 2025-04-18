@@ -103,8 +103,6 @@ class UTApiService {
 			
 			const response = await this.utApi.deleteFiles(keys);
 			
-			console.log(response)
-			
 			return response as DeleteFilesResponse;
 		} catch (error) {
 			throw this.handleError(error);

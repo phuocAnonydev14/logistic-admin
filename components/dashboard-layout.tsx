@@ -31,6 +31,8 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar"
 import { useToast } from "@/components/ui/use-toast"
+import {deleteCookie, getCookie} from "cookies-next";
+import {EToken} from "@/lib/enum/app.enum";
 
 interface DashboardLayoutProps {
   children: React.ReactNode
@@ -45,14 +47,16 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   useEffect(() => {
     setIsClient(true)
     // Check if user is authenticated
-    const isAuthenticated = localStorage.getItem("admin-auth") === "true"
+    const isAuthenticated = getCookie(EToken.ACCESS_TOKEN)
     if (!isAuthenticated) {
       router.push("/login")
     }
   }, [router])
 
   const handleLogout = () => {
-    localStorage.removeItem("admin-auth")
+    deleteCookie(EToken.ACCESS_TOKEN)
+    deleteCookie(EToken.ACCESS_TOKEN)
+    deleteCookie(EToken.REFRESH_TOKEN)
     toast({
       title: "Logged out",
       description: "You have been logged out successfully",
@@ -111,18 +115,11 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-          <SidebarGroup>
-            <SidebarGroupLabel>Settings</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
                 <SidebarMenuItem>
-                  <SidebarMenuButton asChild isActive={pathname === "/dashboard/settings"} tooltip="Settings">
-                    <a href="/dashboard/settings">
-                      <Settings className="h-4 w-4" />
-                      <span>Settings</span>
+                  <SidebarMenuButton asChild isActive={pathname === "/dashboard/analytics"} tooltip="Analytics">
+                    <a href="/dashboard/appointment">
+                      <BarChart3 className="h-4 w-4" />
+                      <span>Appointment</span>
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

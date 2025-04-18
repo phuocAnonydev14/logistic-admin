@@ -61,13 +61,14 @@ export default function LoginPage() {
       setCookie(EToken.ACCESS_TOKEN, res.data.accessToken)
       setCookie(EToken.REFRESH_TOKEN, res.data.refreshToken)
       setCookie(EToken.USER_ID, res.data.user.id)
+      await new Promise(_ => setTimeout(_, 1000))
       
       toast({
         title: "Login successful",
         description: "Welcome to the admin dashboard",
       })
       
-      router.push("/dashboard")
+      router.push("/dashboard/categories")
     } catch (error) {
       console.error("Login error:", error)
       toast({
