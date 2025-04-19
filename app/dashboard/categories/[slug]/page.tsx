@@ -5,7 +5,6 @@ import type React from "react"
 import {useEffect, useState} from "react"
 import {useParams, useRouter} from "next/navigation"
 import {zodResolver} from "@hookform/resolvers/zod"
-import {ImagePlus, Languages, Trash} from "lucide-react"
 import {useForm} from "react-hook-form"
 import * as z from "zod"
 
@@ -21,7 +20,7 @@ import {ImageUploadPreview} from "@/components/uploadthing-button"
 import {ClientUploadedFileData} from "uploadthing/types"
 import dynamic from "next/dynamic";
 
-const HTMLRichTextEditor = dynamic(() => import("@/components/HTMLString"), {
+const HTMLRichTextEditor = dynamic(() => import("@/components/HTMLString").then(res => res.HTMLRichTextEditor), {
 	ssr: false,
 })
 

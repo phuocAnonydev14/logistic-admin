@@ -20,13 +20,9 @@ import {ImageUploadPreview} from "@/components/uploadthing-button"
 import {ClientUploadedFileData} from "uploadthing/types"
 import dynamic from "next/dynamic";
 
-const HTMLRichTextEditor = dynamic(() => import("@/components/HTMLString"), {
+const HTMLRichTextEditor = dynamic(() => import("@/components/HTMLString").then(res => res.HTMLRichTextEditor), {
 	ssr: false,
 })
-const languages = [
-	{code: "en", name: "English"},
-	{code: "vi", name: "Vietnamese"},
-]
 
 // Form schema
 const formSchema = z.object({
@@ -37,11 +33,6 @@ const formSchema = z.object({
 
 export default function EditCategoryPage() {
 	const router = useRouter()
-	const [selectedLanguage, setSelectedLanguage] = useState("en")
-	const {slug}: { slug: string } = useParams();
-	const [category, setCategory] = useState<Category | null>(null);
-	const [imageUrl, setImageUrl] = useState<string>("");
-	const [imageFile, setImageFile] = useState<File | null>(null); // Add state for the file
 	const [filekey, setFilekey] = useState<ClientUploadedFileData<{
 		uploadedBy: string;
 	}> | any>(null);
