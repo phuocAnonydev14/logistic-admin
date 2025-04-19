@@ -13,13 +13,16 @@ import {Button} from "@/components/ui/button"
 import {Card, CardContent} from "@/components/ui/card"
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form"
 import {Input} from "@/components/ui/input"
-import "react-quill/dist/quill.snow.css"
-import {HTMLRichTextEditor} from "@/components/HTMLString";
 import {toast} from "sonner";
 import {ImageUploadPreview} from "@/components/uploadthing-button"
 import {ClientUploadedFileData} from "uploadthing/types"
 import {BlogType} from "@/types/blog.type";
 import {blogService} from "@/services/blog.service";
+import dynamic from "next/dynamic";
+
+const HTMLRichTextEditor = dynamic(() => import("@/components/HTMLString"), {
+  ssr: false,
+})
 
 // Form schema
 const formSchema = z.object({

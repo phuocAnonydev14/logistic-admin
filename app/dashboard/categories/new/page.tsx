@@ -1,11 +1,9 @@
 "use client"
-
 import type React from "react"
 
-import {useEffect, useState} from "react"
+import { useState} from "react"
 import {useParams, useRouter} from "next/navigation"
 import {zodResolver} from "@hookform/resolvers/zod"
-import {ImagePlus, Languages, Trash} from "lucide-react"
 import {useForm} from "react-hook-form"
 import * as z from "zod"
 
@@ -14,22 +12,17 @@ import {Button} from "@/components/ui/button"
 import {Card, CardContent} from "@/components/ui/card"
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form"
 import {Input} from "@/components/ui/input"
-import {Label} from "@/components/ui/label"
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select"
-import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs"
-import {RichTextEditor} from "@/components/rich-text-editor"
-import ReactQuill from "react-quill"
 import "react-quill/dist/quill.snow.css"
-import {HTMLRichTextEditor} from "@/components/HTMLString";
-import {useCategory} from "@/hooks/use-category";
-import {productService} from "@/services/product.service";
 import {categoryService} from "@/services/category.service";
 import {toast} from "sonner";
 import {Category} from "@/types/app.type"
 import {ImageUploadPreview} from "@/components/uploadthing-button"
 import {ClientUploadedFileData} from "uploadthing/types"
+import dynamic from "next/dynamic";
 
-
+const HTMLRichTextEditor = dynamic(() => import("@/components/HTMLString"), {
+	ssr: false,
+})
 const languages = [
 	{code: "en", name: "English"},
 	{code: "vi", name: "Vietnamese"},
