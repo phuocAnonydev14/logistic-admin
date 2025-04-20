@@ -50,7 +50,7 @@ export default function ContactPage() {
                     <TableCell className="font-medium">{item.name}</TableCell>
                     <TableCell className="text-right">{item.email}</TableCell>
                     <TableCell className="text-right">{item.phone}</TableCell>
-                    <TableCell className="text-right">{item.category}</TableCell>
+                    <TableCell className="text-right">{item?.category.name}</TableCell>
                     <TableCell className="text-right">{item.message}</TableCell>
                     <TableCell className="text-right">{new Date(item.createdAt).toLocaleString()}</TableCell>
                   </TableRow>
