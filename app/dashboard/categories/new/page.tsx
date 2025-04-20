@@ -15,11 +15,10 @@ import {Input} from "@/components/ui/input"
 import "react-quill/dist/quill.snow.css"
 import {categoryService} from "@/services/category.service";
 import {toast} from "sonner";
-import {Category} from "@/types/app.type"
 import {ImageUploadPreview} from "@/components/uploadthing-button"
 import {ClientUploadedFileData} from "uploadthing/types"
 import dynamic from "next/dynamic";
-
+import {Textarea} from "@/components/ui/textarea";
 const HTMLRichTextEditor = dynamic(() => import("@/components/HTMLString").then(res => res.HTMLRichTextEditor), {
 	ssr: false,
 })
@@ -53,7 +52,7 @@ export default function EditCategoryPage() {
 			await categoryService.createCategory({...values, imageUrl: filekey?.ufsUrl, fileKey: filekey?.key})
 			
 			// Here you would normally submit the form data to your API
-			console.log("Submitting product:", {
+			console.log("Submitting Category:", {
 				...values,
 			})
 			
@@ -61,7 +60,7 @@ export default function EditCategoryPage() {
 				"Category updated",
 			)
 			
-			// Redirect to products list
+			// Redirect to Categories list
 			router.push("/dashboard/categories")
 		}catch (e) {
 			console.error(e)
@@ -75,7 +74,7 @@ export default function EditCategoryPage() {
 				<div className="flex items-center justify-between">
 					<h2 className="text-2xl font-bold">Add New Category</h2>
 					<div className="flex gap-2">
-						<Button variant="outline" onClick={() => router.push("/dashboard/products")}>
+						<Button variant="outline" onClick={() => router.push("/dashboard/Categories")}>
 							Cancel
 						</Button>
 						<Button onClick={form.handleSubmit(onSubmit)}>Add Category</Button>
@@ -95,13 +94,27 @@ export default function EditCategoryPage() {
 											<FormItem>
 												<FormLabel>Category Name</FormLabel>
 												<FormControl>
-													<Input placeholder="Enter product name" {...field} />
+													<Input placeholder="Enter Category name" {...field} />
 												</FormControl>
 												<FormMessage/>
 											</FormItem>
 										)}
 									/>
-								
+									<FormField
+										control={form.control}
+										name="description"
+										render={({field}) => (
+											<FormItem>
+												<FormLabel>Category Description</FormLabel>
+												<FormControl>
+													<Textarea
+														placeholder="Enter category descripton" {...field}
+													/>
+												</FormControl>
+												<FormMessage/>
+											</FormItem>
+										)}
+									/>
 								</div>
 							</CardContent>
 						</Card>
@@ -112,29 +125,14 @@ export default function EditCategoryPage() {
 						<Card className="md:col-span-2">
 							<CardContent className="pt-6">
 								<div className="space-y-4">
-									<FormField
-										control={form.control}
-										name="description"
-										render={({field}) => (
-											<FormItem>
-												<FormLabel>Product Description</FormLabel>
-												<FormControl>
-													<HTMLRichTextEditor
-														value={field.value}
-														onChange={field.onChange}
-													/>
-												</FormControl>
-												<FormMessage/>
-											</FormItem>
-										)}
-									/>
+								
 									
 									<FormField
 										control={form.control}
 										name="content"
 										render={({field}) => (
 											<FormItem>
-												<FormLabel>Product Content</FormLabel>
+												<FormLabel>Category Content</FormLabel>
 												<FormControl>
 													<HTMLRichTextEditor
 														value={field.value}

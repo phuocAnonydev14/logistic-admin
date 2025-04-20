@@ -19,6 +19,7 @@ import {ClientUploadedFileData} from "uploadthing/types"
 import {BlogType} from "@/types/blog.type";
 import {blogService} from "@/services/blog.service";
 import dynamic from "next/dynamic";
+import {Textarea} from "@/components/ui/textarea";
 
 const HTMLRichTextEditor = dynamic(() => import("@/components/HTMLString").then(res => res.HTMLRichTextEditor), {ssr: false})
 
@@ -37,6 +38,7 @@ export default function EditBlogPage() {
 		uploadedBy: string;
 	}> | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
+	const [tag, setTag] = useState("")
 	
 	// Initialize form
 	const form = useForm<z.infer<typeof formSchema>>({
@@ -51,7 +53,7 @@ export default function EditBlogPage() {
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
 		
 		try {
-			await blogService.updateBlog(blog?.id || 0, {...values, imageUrl: filekey?.ufsUrl, fileKey: filekey?.key})
+			await blogService.updateBlog(blog?.id || 0, {...values, imageUrl: filekey?.ufsUrl, fileKey: filekey?.key, tag})
 			
 			// Here you would normally submit the form data to your API
 			console.log("Submitting blog:", {
@@ -82,6 +84,7 @@ export default function EditBlogPage() {
 					title: blog.title,
 					desc: blog.desc,
 					content: blog.content,
+					tag: blog.tag
 				});
 				if (blog.thumbnail) {
 					setFilekey({key: blog.thumbnail.fileKey || '', ufsUrl: blog.thumbnail.imageUrl} as any)
@@ -143,21 +146,6 @@ export default function EditBlogPage() {
 											</FormItem>
 										)}
 									/>
-								
-								</div>
-							</CardContent>
-						</Card>
-						
-						<ImageUploadPreview
-							initialImage={filekey?.ufsUrl || ''}
-							setFilekey={(data) => setFilekey(data)}
-							initialFileData={filekey}
-							additionalPayload={{blogId: blog?.id}}/>
-						
-						
-						<Card className="md:col-span-2">
-							<CardContent className="pt-6">
-								<div className="space-y-4">
 									<FormField
 										control={form.control}
 										name="desc"
@@ -165,16 +153,26 @@ export default function EditBlogPage() {
 											<FormItem>
 												<FormLabel>Blog Description</FormLabel>
 												<FormControl>
-													<HTMLRichTextEditor
-														value={field.value}
-														onChange={field.onChange}
+													<Textarea
+														placeholder="Enter blog description" {...field}
 													/>
 												</FormControl>
 												<FormMessage/>
 											</FormItem>
 										)}
 									/>
-									
+								</div>
+							</CardContent>
+						</Card>
+						<ImageUploadPreview
+							initialImage={filekey?.ufsUrl || ''}
+							setFilekey={(data) => setFilekey(data)}
+							initialFileData={filekey}
+							additionalPayload={{blogId: blog?.id}}
+						/>
+						<Card className="md:col-span-2">
+							<CardContent className="pt-6">
+								<div className="space-y-4">
 									<FormField
 										control={form.control}
 										name="content"

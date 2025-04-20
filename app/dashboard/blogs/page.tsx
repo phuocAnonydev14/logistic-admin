@@ -79,6 +79,7 @@ export default function BlogsPage() {
               <TableRow>
                 <TableHead>Name</TableHead>
                 <TableHead>Description</TableHead>
+                <TableHead>Tag</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -94,6 +95,7 @@ export default function BlogsPage() {
                   <TableRow key={blog.id}>
                     <TableCell className="font-medium">{blog.title}</TableCell>
                     <TableCell className="font-medium line-clamp-3 text-ellipsis">{parse(blog.desc || '')}</TableCell>
+                    <TableCell>{blog?.tag}</TableCell>
                     <TableCell className="text-right">
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>

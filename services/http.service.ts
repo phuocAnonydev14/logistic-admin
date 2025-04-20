@@ -50,7 +50,7 @@ const handleRefreshToken = async () => {
 };
 class HttpService {
   private readonly http: AxiosInstance;
-  private baseURL = "https://vntranspbackend-production.up.railway.app/v1"
+  private baseURL = process.env.NEXT_PUBLIC_BASE_URL || "https://vntranspbackend-production.up.railway.app/v1"
     // typeof window === "undefined"
     //   ? process.env.SERVER_API_URL
     //   : process.env.NEXT_PUBLIC_BASE_URL;
