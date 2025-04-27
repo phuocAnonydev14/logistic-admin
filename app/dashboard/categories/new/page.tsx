@@ -51,11 +51,6 @@ export default function EditCategoryPage() {
 		try{
 			await categoryService.createCategory({...values, imageUrl: filekey?.ufsUrl, fileKey: filekey?.key})
 			
-			// Here you would normally submit the form data to your API
-			console.log("Submitting Category:", {
-				...values,
-			})
-			
 			toast(
 				"Category updated",
 			)

@@ -52,7 +52,6 @@ export const ImageUploadPreview = ({
       setFileData(uploadedFile);
       setFilekey(uploadedFile);
       await categoryService.addImage({...additionalPayload, fileKey: uploadedFile.key, imageUrl: uploadedFile.ufsUrl});
-      console.log("File uploaded:", uploadedFile);
     }
     catch (error) {
       console.error("Error uploading image:", error);

@@ -24,12 +24,6 @@ import {Textarea} from "@/components/ui/textarea";
 const HTMLRichTextEditor = dynamic(() => import("@/components/HTMLString").then(res => res.HTMLRichTextEditor), {
 	ssr: false,
 })
-
-const languages = [
-	{code: "en", name: "English"},
-	{code: "vi", name: "Vietnamese"},
-]
-
 // Form schema
 const formSchema = z.object({
 	name: z.string().min(1, "Vietnamese name is required"),
@@ -67,8 +61,8 @@ export default function EditCategoryPage() {
 				// Set form values
 				form.reset({
 					name: category.name,
-					description: category.description,
-					content: category.content,
+					description: category?.description || "",
+					content: category?.content || "",
 				});
 				if (category.thumbnail) {
 					setFilekey({key: category.thumbnail.fileKey || '', ufsUrl: category.thumbnail.imageUrl} as any)
@@ -88,11 +82,6 @@ export default function EditCategoryPage() {
 			imageUrl: filekey?.ufsUrl,
 			fileKey: filekey?.key
 		})
-		// Here you would normally submit the form data to your API
-		console.log("Submitting Category:", {
-			...values,
-		})
-		
 		toast(
 			"Category updated",
 		)
@@ -122,7 +111,7 @@ export default function EditCategoryPage() {
 				<div className="flex items-center justify-between">
 					<h2 className="text-2xl font-bold">Update Category</h2>
 					<div className="flex gap-2">
-						<Button variant="outline" onClick={() => router.push("/dashboard/Categorys")}>
+						<Button variant="outline" onClick={() => router.push("/dashboard/categories")}>
 							Cancel
 						</Button>
 						<Button onClick={form.handleSubmit(onSubmit)}>Update Category</Button>

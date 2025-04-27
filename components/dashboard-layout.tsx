@@ -123,6 +123,14 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild isActive={pathname === "/dashboard/analytics"} tooltip="Analytics">
+                    <a href="/dashboard/recruitment">
+                      <BarChart3 className="h-4 w-4" />
+                      <span>Recruitment</span>
+                    </a>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>

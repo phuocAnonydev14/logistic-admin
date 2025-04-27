@@ -92,8 +92,8 @@ export default function CategoriesPage() {
 							) : (
 								filteredCategories.map((category) => (
 									<TableRow key={category.id}>
-										<TableCell className="font-medium">{category.name}</TableCell>
-										<TableCell className="font-medium line-clamp-3 text-ellipsis">{parse(category.description || '')}</TableCell>
+										<TableCell className="font-medium">{category?.name}</TableCell>
+										<TableCell className="font-medium line-clamp-3 text-ellipsis">{parse(category?.description || '')}</TableCell>
 										<TableCell className="text-right">
 											<DropdownMenu>
 												<DropdownMenuTrigger asChild>
@@ -107,7 +107,7 @@ export default function CategoriesPage() {
 													<DropdownMenuSeparator/>
 													<DropdownMenuItem
 													>
-														<Link href={`/dashboard/categories/${category.slug}`}
+														<Link href={`/dashboard/categories/${category?.slug}`}
 																	className="flex gap-2 items-center"
 														>
 															<Edit className="mr-2 h-4 w-4"/>

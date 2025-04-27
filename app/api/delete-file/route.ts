@@ -29,7 +29,6 @@ const isAdmin = async (req: NextRequest) => {
 
 export async function DELETE(req: NextRequest) {
 	try {
-		console.log("process.env.UPLOADTHING_TOKE", process.env.UPLOADTHING_TOKEN)
 		// Parse request body
 		const url = new URL(req.url);
 		const fileKey = url.searchParams.get("fileKey");
