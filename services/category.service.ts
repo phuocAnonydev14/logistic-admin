@@ -1,5 +1,6 @@
 import HttpService from "@/services/http.service";
 import {Category, Pagination, Product} from "@/types/app.type";
+import {IGenericResponse} from "@/types/service.type";
 
 export interface CategoryGetAllFilter {
   limit?: number;
@@ -19,27 +20,27 @@ class CategoryService extends HttpService {
   }
 
   async getCategoryDetail(slug: string) {
-    return (await this.get<Category>(`/categories/${slug}`, {}, true))?.data
+    return (await this.get<IGenericResponse<Category>>(`/categories/${slug}`, {}, true))?.data
   }
   
   async createCategory(payload: any) {
-    return (await this.post<Category>(`/categories`, payload, {}, false))?.data
+    return (await this.post<IGenericResponse<Category>>(`/categories`, payload, {}, false))?.data
   }
   
   async updateCategory(id:number,payload: any) {
-    return (await this.put<Category>(`/categories/${id}`, payload, {}, false))?.data
+    return (await this.put<IGenericResponse<Category>>(`/categories/${id}`, payload, {}, false))?.data
   }
   
   async deleteCategory(id: number) {
-    return (await this.remove<Category>(`/categories/${id}`, {}, false))?.data
+    return (await this.remove<IGenericResponse<Category>>(`/categories/${id}`, {}, false))?.data
   }
   
-  async deleteImage(id: number) {
-    return (await this.remove<Category>(`/image-upload/${id}`, {}, false))?.data
+  async deleteImage(id: string) {
+    return (await this.remove<any>(`/image-upload/${id}`, {}, false))?.data
   }
   
   async addImage(payload: any) {
-    return (await this.post<Category>(`/image-upload`, payload, {}, false))?.data
+    return (await this.post<any>(`/image-upload`, payload, {}, false))?.data
   }
 }
 

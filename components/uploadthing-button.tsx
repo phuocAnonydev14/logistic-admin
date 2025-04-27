@@ -79,17 +79,17 @@ export const ImageUploadPreview = ({
     <div className="w-full">
       {imageUrl ? (
         <div className="relative w-full max-w-md mx-auto">
-          <div className="relative aspect-square w-full overflow-hidden rounded-lg border border-gray-200">
-            <Image 
+          <div className="relative w-full overflow-hidden rounded-lg border h-max">
+            <img
               src={imageUrl} 
               alt="Preview" 
-              fill 
-              className="object-cover"
+              className="object-cover w-full h-auto"
             />
           </div>
           <Button
             variant="destructive"
             type="button"
+            size="icon"
             onClick={handleDeleteImage}
             className="absolute top-2 right-2 p-1.5 bg-red-500 rounded-full text-white hover:bg-red-600 transition-colors"
             aria-label="Delete image"
