@@ -93,7 +93,7 @@ export default function EditBlogPage() {
 				}
 			} else {
 				toast("Blog not found",);
-				router.push("/dashboard/products");
+				router.push("/dashboard/blogs");
 			}
 			
 			setIsLoading(false);
