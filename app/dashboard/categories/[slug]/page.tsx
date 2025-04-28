@@ -39,6 +39,7 @@ export default function EditCategoryPage() {
 	const [filekey, setFilekey] = useState<ClientUploadedFileData<{
 		uploadedBy: string;
 	}> | any>(null);
+	const [editing, setEditing] = useState(false);
 	
 	// Initialize form
 	const form = useForm<z.infer<typeof formSchema>>({
@@ -77,17 +78,24 @@ export default function EditCategoryPage() {
 	}, [slug, form, router, toast]);
 	
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
-		await categoryService.updateCategory(category?.id || 1, {
-			...values,
-			imageUrl: filekey?.ufsUrl,
-			fileKey: filekey?.key
-		})
-		toast(
-			"Category updated",
-		)
-		
-		// Redirect to Categorys list
-		router.push("/dashboard/categories")
+		try {
+			setEditing(true)
+			await categoryService.updateCategory(category?.id || 1, {
+				...values,
+				imageUrl: filekey?.ufsUrl,
+				fileKey: filekey?.key
+			})
+			toast(
+				"Category updated",
+			)
+			
+			// Redirect to Categorys list
+			router.push("/dashboard/categories")
+		} catch (e) {
+			console.error(e)
+		} finally {
+			setEditing(false)
+		}
 	}
 	
 	if (isLoading) {
@@ -114,7 +122,7 @@ export default function EditCategoryPage() {
 						<Button variant="outline" onClick={() => router.push("/dashboard/categories")}>
 							Cancel
 						</Button>
-						<Button onClick={form.handleSubmit(onSubmit)}>Update Category</Button>
+						<Button disabled={editing} onClick={form.handleSubmit(onSubmit)}>Update Category</Button>
 					</div>
 				</div>
 				
