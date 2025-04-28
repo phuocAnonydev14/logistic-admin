@@ -46,7 +46,7 @@ export default function EditBlogPage() {
 		resolver: zodResolver(formSchema),
 		defaultValues: {
 			title: "",
-			description: "",
+			desc: "",
 			content: ""
 		},
 	})

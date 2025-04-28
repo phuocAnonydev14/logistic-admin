@@ -86,8 +86,8 @@ export default function EditBlogPage() {
 					title: blog.title,
 					desc: blog.desc,
 					content: blog.content,
-					tag: blog.tag || "internal"
 				});
+				setTag(blog.tag as any || "internal")
 				if (blog.thumbnail) {
 					setFilekey({key: blog.thumbnail.fileKey || '', ufsUrl: blog.thumbnail.imageUrl} as any)
 				}
