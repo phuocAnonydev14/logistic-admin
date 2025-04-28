@@ -40,6 +40,7 @@ export default function EditBlogPage() {
 		uploadedBy: string;
 	}> | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
+	const [editing, setEditing] = useState(false);
 	const [tag, setTag] = useState("")
 	
 	// Initialize form
@@ -55,6 +56,7 @@ export default function EditBlogPage() {
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
 		
 		try {
+			setEditing(true);
 			await blogService.updateBlog(blog?.id || 0, {...values, imageUrl: filekey?.ufsUrl, fileKey: filekey?.key, tag})
 			
 			// Here you would normally submit the form data to your API
@@ -70,6 +72,8 @@ export default function EditBlogPage() {
 			router.push("/dashboard/blogs")
 		} catch (e) {
 			console.error(e)
+		}finally {
+			setEditing(false)
 		}
 	}
 	
@@ -125,7 +129,7 @@ export default function EditBlogPage() {
 						<Button variant="outline" onClick={() => router.push("/dashboard/blogs")}>
 							Cancel
 						</Button>
-						<Button onClick={form.handleSubmit(onSubmit)}>Edit Blog</Button>
+						<Button disabled={editing} onClick={form.handleSubmit(onSubmit)}>Edit Blog</Button>
 					</div>
 				</div>
 				
@@ -136,7 +140,7 @@ export default function EditBlogPage() {
 							<CardContent className="pt-6">
 								<div className="space-y-4">
 									<div>
-										<RadioGroup defaultValue="interal" onValueChange={val => setTag(val)}>
+										<RadioGroup defaultValue="interal" onValueChange={val => setTag(val)} value={tag}>
 											<div className="flex items-center space-x-2">
 												<RadioGroupItem value="internal" id="option-one"/>
 												<Label htmlFor="internal">Tin công ty</Label>

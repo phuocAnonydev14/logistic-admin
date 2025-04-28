@@ -29,9 +29,9 @@ export default function BlogsPage() {
   const {setBlogs, blogs} = useBlog()
   
   
-  const filteredBlogs = blogs.filter((blog) =>
+  const filteredBlogs = blogs?.filter((blog) =>
     blog.title.toLowerCase().includes(searchTerm.toLowerCase()),
-  )
+  ) || []
   
   const handleDeleteBlog = async (id: number) => {
     try {

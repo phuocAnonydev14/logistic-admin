@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { useState } from "react"
+import {useEffect, useState} from "react"
 import { useRouter } from "next/navigation"
 import { Lock, User } from "lucide-react"
 import { z } from "zod"
@@ -10,7 +10,6 @@ import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { useToast } from "@/components/ui/use-toast"
 import { authService } from "@/services/auth.service"
 import {
@@ -22,7 +21,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import {EToken} from "@/lib/enum/app.enum";
-import {setCookie} from "cookies-next";
+import {deleteCookie, setCookie} from "cookies-next";
 
 // Define the login form schema with Zod
 const loginFormSchema = z.object({
@@ -49,6 +48,11 @@ export default function LoginPage() {
     resolver: zodResolver(loginFormSchema),
     defaultValues,
   })
+  
+  useEffect(() => {
+    deleteCookie(EToken.ACCESS_TOKEN)
+    deleteCookie(EToken.REFRESH_TOKEN)
+  }, []);
   
   const onSubmit = async (data: LoginFormValues) => {
     try {

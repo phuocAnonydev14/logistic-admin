@@ -202,7 +202,8 @@ class HttpService {
 			if (!isExpired) return request;
 			
 			console.log("token expired");
-			await deleteCookieKey(EToken.ACCESS_TOKEN);
+			// await deleteCookieKey(EToken.ACCESS_TOKEN);
+			// await deleteCookieKey(EToken.REFRESH_TOKEN);
 			const newAccessToken = await handleRefreshToken();
 			return {
 				...request,
@@ -232,14 +233,14 @@ class HttpService {
 				return response;
 			},
 			(error) => {
-				deleteCookieKey(EToken.ACCESS_TOKEN);
-				deleteCookieKey(EToken.REFRESH_TOKEN);
 				if (error.code === "ECONNABORTED") {
 					console.error("Request timed out");
 				}
 				if (!error.response) return;
 				const statusCode = error.response.status;
 				if (statusCode === 401) {
+					deleteCookieKey(EToken.ACCESS_TOKEN);
+					deleteCookieKey(EToken.REFRESH_TOKEN);
 					console.warn("Unauthorized. Redirecting to home page...");
 					window.location.href = "/login";
 					
