@@ -39,7 +39,7 @@ export default function EditBlogPage() {
 		uploadedBy: string;
 	}> | null>(null);
 	
-	const [tag, setTag] = useState("")
+	const [tag, setTag] = useState("internal")
 	
 	// Initialize form
 	const form = useForm<z.infer<typeof formSchema>>({

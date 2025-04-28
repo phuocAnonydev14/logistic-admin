@@ -20,6 +20,8 @@ import {BlogType} from "@/types/blog.type";
 import {blogService} from "@/services/blog.service";
 import dynamic from "next/dynamic";
 import {Textarea} from "@/components/ui/textarea";
+import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
+import {Label} from "@/components/ui/label";
 
 const HTMLRichTextEditor = dynamic(() => import("@/components/HTMLString").then(res => res.HTMLRichTextEditor), {ssr: false})
 
@@ -84,7 +86,7 @@ export default function EditBlogPage() {
 					title: blog.title,
 					desc: blog.desc,
 					content: blog.content,
-					tag: blog.tag
+					tag: blog.tag || "internal"
 				});
 				if (blog.thumbnail) {
 					setFilekey({key: blog.thumbnail.fileKey || '', ufsUrl: blog.thumbnail.imageUrl} as any)
@@ -133,6 +135,18 @@ export default function EditBlogPage() {
 						<Card>
 							<CardContent className="pt-6">
 								<div className="space-y-4">
+									<div>
+										<RadioGroup defaultValue="interal" onValueChange={val => setTag(val)}>
+											<div className="flex items-center space-x-2">
+												<RadioGroupItem value="internal" id="option-one"/>
+												<Label htmlFor="internal">Tin công ty</Label>
+											</div>
+											<div className="flex items-center space-x-2">
+												<RadioGroupItem value="external" id="option-two"/>
+												<Label htmlFor="external">Tin ngành</Label>
+											</div>
+										</RadioGroup>
+									</div>
 									<FormField
 										control={form.control}
 										name="title"
