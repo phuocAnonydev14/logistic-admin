@@ -107,14 +107,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
-                <SidebarMenuItem>
-                  <SidebarMenuButton asChild isActive={pathname === "/dashboard/analytics"} tooltip="Analytics">
-                    <a href="/dashboard/analytics">
-                      <BarChart3 className="h-4 w-4" />
-                      <span>Analytics</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
+                
                 <SidebarMenuItem>
                   <SidebarMenuButton asChild isActive={pathname === "/dashboard/analytics"} tooltip="Analytics">
                     <a href="/dashboard/appointment">
@@ -128,6 +121,14 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                     <a href="/dashboard/recruitment">
                       <BarChart3 className="h-4 w-4" />
                       <span>Recruitment</span>
+                    </a>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild isActive={pathname === "/dashboard/analytics"} tooltip="Analytics">
+                    <a href="/dashboard/analytics">
+                      <BarChart3 className="h-4 w-4" />
+                      <span>Analytics</span>
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
